@@ -36,7 +36,8 @@ openai.api_key = st.sidebar.text_input('Veuillez insérer la clée fournie pour 
 
 def analyze_emotion(text):
    try:
-       content = f"peux tu me donner seulement une émotion exacte sans commentaire, et si tu ne détecte pas une émotion met 'neutre' sans commentaires : par exemple 'Neutre ou frustration ou colère, ...'?\n{text}"
+       #content = f"peux tu me donner seulement une émotion exacte sans commentaire, et si tu ne détecte pas une émotion met 'neutre' sans commentaires : par exemple 'Neutre ou frustration ou colère, ...'?\n{text}"
+       content = f"Please analyze the following text to detect the underlying emotion. Return the detected emotion in French (e.g., 'Neutre', 'Frustration', 'Colère', etc.). If no specific emotion is detected, please respond with 'Neutre'. The text for analysis is: \n{text}"
        messages = [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": content}]
        response = openai.ChatCompletion.create(
            model="gpt-3.5-turbo-16k",
