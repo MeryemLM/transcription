@@ -117,7 +117,7 @@ def main():
             # Message indiquant à l'utilisateur d'uploader un fichier
             st.write("Veuillez uploader un fichier audio pour commencer la transcription.")     
             
-    elif option == "Utiliser le chemin du fichier audioo":
+    elif option == "Utiliser le chemin du fichier audio":
             
         audio_url = st.text_input("Entrez le chemin du fichier audio")
 
