@@ -124,7 +124,7 @@ def main():
         # Boutons pour la transcription et l'analyse de l'émotion
         button_col1, button_col2, button_col3 = st.columns(3)
 
-        if audio_url is not None : 
+        if audio_url != "": 
         
             if button_col1.button("Transcription") :
 
