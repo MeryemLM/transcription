@@ -7,17 +7,33 @@ import openai
 st.set_page_config(layout="wide")
 
 
-def transcribe_audio(audio_path):
+def transcribe_audio(audio_source):
     # Configuration de l'API AssemblyAI
     aai.settings.api_key = "146c7980fa5a4b6c872033d97234500b"
-
+ 
     # Création d'un transcriber
     transcriber = aai.Transcriber()
-    # Configuration de la transcription
-    config = aai.TranscriptionConfig(language_code="fr", speaker_labels=True, speakers_expected=2)
-    # Transcription de l'audio
-    transcript = transcriber.transcribe(audio_path, config)
-    return transcript
+ 
+    if audio_source.startswith("http"):
+        # Si audio_source est une URL, télécharge le fichier audio temporaire
+        with tempfile.NamedTemporaryFile(delete=False) as tmp_audio_file:
+            response = requests.get(audio_source)
+            tmp_audio_file.write(response.content)
+            audio_path = tmp_audio_file.name
+    else:
+        # Si audio_source est un chemin de fichier local, utilise-le directement
+        audio_path = audio_source
+ 
+    try:
+        # Configuration de la transcription
+        config = aai.TranscriptionConfig(language_code="fr", speaker_labels=True, speakers_expected=2)
+        # Transcription de l'audio
+        transcript = transcriber.transcribe(audio_path, config)
+        return transcript
+    finally:
+        # Si un fichier temporaire a été créé, le supprimer après la transcription
+        if audio_source.startswith("http"):
+            os.unlink(audio_path)
 
 sentiment_analysis = pipeline(
   "sentiment-analysis",
