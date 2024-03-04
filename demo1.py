@@ -3,21 +3,25 @@ import assemblyai as aai
 from transformers import pipeline
 import tempfile
 import openai
+import os
 
 st.set_page_config(layout="wide")
-
 
 def transcribe_audio(audio_path):
     # Configuration de l'API AssemblyAI
     aai.settings.api_key = "146c7980fa5a4b6c872033d97234500b"
-
+ 
     # Création d'un transcriber
     transcriber = aai.Transcriber()
     # Configuration de la transcription
     config = aai.TranscriptionConfig(language_code="fr", speaker_labels=True, speakers_expected=2)
+    if os.path.exists(audio_path):
+        # Le fichier existe, procédez à la transcription
+        transcript = transcriber.transcribe(audio_path, config)
     # Transcription de l'audio
-    transcript = transcriber.transcribe(audio_path, config)
+    #transcript = transcriber.transcribe(audio_path, config)
     return transcript
+
 
 sentiment_analysis = pipeline(
   "sentiment-analysis",
@@ -124,7 +128,7 @@ def main():
         # Boutons pour la transcription et l'analyse de l'émotion
         button_col1, button_col2, button_col3 = st.columns(3)
 
-        if audio_url != "": 
+        if audio_url is not None : 
         
             if button_col1.button("Transcription") :
 
