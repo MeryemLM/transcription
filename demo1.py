@@ -70,8 +70,8 @@ def main():
         
         # Ajouter un composant pour uploader un fichier audio
     uploaded_file = st.file_uploader("Téléverser un fichier audio", type=["mp3", "wav"])
-    audio_data = io.BytesIO(uploaded_file.read())
-    st.audio(audio_data, format='audio/wav')
+    #audio_data = io.BytesIO(uploaded_file.read())
+    #st.audio(audio_data, format='audio/wav')
     # Lire le fichier audio téléversé et le jouer
     
 
