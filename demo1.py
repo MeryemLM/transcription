@@ -6,8 +6,8 @@ import openai
 
 st.set_page_config(layout="wide")
 
-aai.settings.api_key = st.sidebar.text_input('Veuillez insérer la clée fournie pour transcription', type='password')
-
+#aai.settings.api_key = st.sidebar.text_input('Veuillez insérer la clée fournie pour transcription', type='password')
+aai.settings.api_key = "146c7980fa5a4b6c872033d97234500b"
 def transcribe_audio(audio_path):
     # Configuration de l'API AssemblyAI
     #aai.settings.api_key = "146c7980fa5a4b6c872033d97234500b"
