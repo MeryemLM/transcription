@@ -21,15 +21,7 @@ def transcribe_audio(audio_path):
     transcript = transcriber.transcribe(audio_path, config)
     return transcript
 
-sentiment_analysis = pipeline(
-  "sentiment-analysis",
-  framework="pt",
-  model="lxyuan/distilbert-base-multilingual-cased-sentiments-student" #SamLowe/roberta-base-go_emotions  #lxyuan/distilbert-base-multilingual-cased-sentiments-student
-)
-def analyze_sentiment_voice(text):
-    results = sentiment_analysis(text)
-    sentiment_label = results[0]['label']
-    return sentiment_label
+
 
 # Set up OpenAI API key
 
@@ -49,6 +41,25 @@ def analyze_emotion(text):
        # Extraire l'émotion de la phrase complète
        emotion = emotion_result.split(":")[-1].strip()
        return emotion
+   except Exception as e:
+       print(f"Erreur lors de l'analyse de l'émotion : {e}")
+       return None
+
+def analyze_voix(text):
+   try:
+       #content = f"peux tu me donner seulement une émotion exacte sans commentaire, et si tu ne détecte pas une émotion met 'neutre' sans commentaires : par exemple 'Neutre ou frustration ou colère, ...'?\n{text}"
+       content = f"Please analyze the following text to detect the underlying emotion. Return the detected emotion as 'Positive', 'Negative', or 'Neutral'. If no specific emotion is detected, please respond with 'Neutral'. The text for analysis is: \n{text}"
+
+       messages = [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": content}]
+       response = openai.ChatCompletion.create(
+           model="gpt-3.5-turbo-16k",
+           messages=messages,
+           max_tokens=100
+       )
+       emotion_result = response['choices'][0]['message']['content']
+       # Extraire l'émotion de la phrase complète
+       emotion0 = emotion_result.split(":")[-1].strip()
+       return emotion0
    except Exception as e:
        print(f"Erreur lors de l'analyse de l'émotion : {e}")
        return None
@@ -116,7 +127,7 @@ def main():
                 st.write(f"<span style='color: blue;'>Speaker {utterance.speaker}:</span> {utterance.text}", unsafe_allow_html=True)
             
                     # Transcription de l'audio
-                sentiment0 = analyze_sentiment_voice(utterance.text)
+                sentiment0 = analyze_voix(utterance.text)
                 st.write("Sentiment : ", sentiment0)
                  
 
