@@ -96,7 +96,6 @@ def main():
             tmp_file.write(uploaded_file.read())
             audio_path = tmp_file.name
             audio_data = io.BytesIO(uploaded_file.read())
-            audio_player = st.empty()
 
             st.audio(audio_data, format='audio/mp3')
             
