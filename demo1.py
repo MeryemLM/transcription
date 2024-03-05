@@ -81,16 +81,13 @@ def main():
         
         # Ajouter un composant pour uploader un fichier audio
     uploaded_file = st.file_uploader("Téléverser un fichier audio", type=["mp3", "wav"])
-    record_audio = uploaded_file
-    audio_data = io.BytesIO(record_audio.read())
-    audio_player = st.empty()
-    audio_player.audio(audio_data, format='audio/mp3'
+    
     
     # Lire le fichier audio téléversé et le jouer
     
 
         # Créer une rangée pour les boutons "Transcription" et "Emotion"
-    button_col1, button_col2, button_col3 = st.columns(3)
+     button_col1, button_col2, button_col3 = st.columns(3)
     
         # Vérifier si un fichier a été uploadé
     if uploaded_file is not None:
