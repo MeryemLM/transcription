@@ -98,7 +98,7 @@ def main():
             audio_data = io.BytesIO(uploaded_file.read())
             audio_player = st.empty()
 
-            st.audio(audio_data, format='audio/wav')
+            st.audio(audio_data, format='audio/mp3')
             
             # Boutons pour la transcription et l'analyse de l'émotion
         if button_col1.button("Transcription") :
