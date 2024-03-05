@@ -83,9 +83,6 @@ def main():
     uploaded_file = st.file_uploader("Téléverser un fichier audio", type=["mp3", "wav"])
     
     # Lire le fichier audio téléversé et le jouer
-    audio_data = io.BytesIO(uploaded_file.read())
-
-    st.audio(audio_data, format='audio/mp3')
     
 
         # Créer une rangée pour les boutons "Transcription" et "Emotion"
