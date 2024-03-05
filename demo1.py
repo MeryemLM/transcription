@@ -90,7 +90,7 @@ def main():
     
 
         # Créer une rangée pour les boutons "Transcription" et "Emotion"
-     button_col1, button_col2, button_col3 = st.columns(3)
+    button_col1, button_col2, button_col3 = st.columns(3)
     
         # Vérifier si un fichier a été uploadé
     if uploaded_file is not None:
