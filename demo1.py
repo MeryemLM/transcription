@@ -70,6 +70,8 @@ def main():
         
         # Ajouter un composant pour uploader un fichier audio
     uploaded_file = st.file_uploader("Téléverser un fichier audio", type=["mp3", "wav"])
+    audio_data = io.BytesIO(uploaded_file.read())
+        st.audio(audio_data, format='audio/wav')
     # Lire le fichier audio téléversé et le jouer
     
 
@@ -78,8 +80,7 @@ def main():
 
         # Vérifier si un fichier a été uploadé
     if uploaded_file is not None:
-        audio_data = io.BytesIO(uploaded_file.read())
-        st.audio(audio_data, format='audio/wav')
+        
             # Créer un fichier temporaire pour enregistrer l'audio uploadé
         with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
             tmp_file.write(uploaded_file.read())
